@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet';
+
 import { Header } from '../components/Header';
 
 import ifpeRecifeLogo from '../assets/ifpe_recife.webp';
@@ -6,6 +8,9 @@ import ifosLogo from '../assets/ifos.svg';
 export function Login() {
   return (
     <>
+      <Helmet>
+        <title>Login | JosueApp</title>
+      </Helmet>
       <Header />
       <div className="p-4 pt-8 max-w-md mx-auto">
         <h1 className="text-4xl font-bold text-neutral-900">Login</h1>
