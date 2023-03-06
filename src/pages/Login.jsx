@@ -12,8 +12,6 @@ import { useAuth } from '../hooks/useAuth';
 import { Header } from '../components/Header';
 import { Input } from '../components/Input';
 
-import { api } from '../services/api';
-
 import ifpeRecifeLogo from '../assets/ifpe_recife.webp';
 import ifosLogo from '../assets/ifos.svg';
 
@@ -37,10 +35,7 @@ export function Login() {
     try {
       toast.dismiss();
       const response = await toast.promise(
-        api.post('/oauth/login', {
-          email: data.email,
-          password: data.password,
-        }),
+        auth.login(data.email, data.password),
         {
           pending: 'Fazendo login...',
           success: 'Login realizado com sucesso!',
@@ -64,8 +59,8 @@ export function Login() {
   }
 
   useEffect(() => {
-    api
-      .get('/oauth/verify')
+    auth
+      .verify()
       .then(() => navigate('/'))
       .catch(() => {});
   }, []);
