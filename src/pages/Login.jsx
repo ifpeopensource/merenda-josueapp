@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
@@ -54,6 +54,13 @@ export function Login() {
 
     setIsLoading(false);
   }
+
+  useEffect(() => {
+    api
+      .get('/oauth/verify')
+      .then(() => navigate('/'))
+      .catch(() => {});
+  }, []);
 
   return (
     <>
