@@ -71,7 +71,7 @@ export function Login() {
       <div className="p-4 pt-8 max-w-md mx-auto">
         <h1 className="text-4xl font-bold text-neutral-900">Login</h1>
         <form
-          className="flex flex-col gap-2 mt-12 text-neutral-900"
+          className="flex flex-col gap-10 mt-12 text-neutral-900"
           onSubmit={handleSubmit(onSubmit)}
         >
           {errors.root?.serverError && (
@@ -80,40 +80,43 @@ export function Login() {
             </span>
           )}
 
-          <Input
-            label="E-mail"
-            inputStyle={
-              errors.email || errors.root?.serverError
-                ? 'border-2 border-red-500 focus:border-b-red-500'
-                : ''
-            }
-            labelStyle={
-              errors.email || errors.root?.serverError
-                ? 'peer-focus:text-red-500'
-                : ''
-            }
-            errorMessage={errors.email && 'Digite seu e-mail'}
-            {...register('email', { required: true })}
-          />
+          <div className="flex flex-col gap-2">
+            <Input
+              label="E-mail"
+              inputStyle={
+                errors.email || errors.root?.serverError
+                  ? 'border-2 border-red-500 focus:border-b-red-500'
+                  : ''
+              }
+              labelStyle={
+                errors.email || errors.root?.serverError
+                  ? 'peer-focus:text-red-500'
+                  : ''
+              }
+              errorMessage={errors.email && 'Digite seu e-mail'}
+              {...register('email', { required: true })}
+            />
 
-          <Input
-            label="Senha"
-            type="password"
-            inputStyle={
-              errors.password || errors.root?.serverError
-                ? 'border-2 border-red-500 focus:border-b-red-500'
-                : ''
-            }
-            labelStyle={
-              errors.password || errors.root?.serverError
-                ? 'peer-focus:text-red-500'
-                : ''
-            }
-            errorMessage={errors.password && 'Digite sua senha'}
-            {...register('password', { required: true })}
-          />
+            <Input
+              label="Senha"
+              type="password"
+              inputStyle={
+                errors.password || errors.root?.serverError
+                  ? 'border-2 border-red-500 focus:border-b-red-500'
+                  : ''
+              }
+              labelStyle={
+                errors.password || errors.root?.serverError
+                  ? 'peer-focus:text-red-500'
+                  : ''
+              }
+              errorMessage={errors.password && 'Digite sua senha'}
+              {...register('password', { required: true })}
+            />
+          </div>
+
           <button
-            className="bg-primary-800 disabled:cursor-progress hover:brightness-90 transition text-neutral-50 font-bold px-4 py-2 rounded-md"
+            className="bg-primary-800 disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-3 rounded-md"
             disabled={isLoading}
             type="submit"
           >
