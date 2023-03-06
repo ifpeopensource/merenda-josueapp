@@ -3,8 +3,11 @@ import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import jwtDecode from 'jwt-decode';
 
 import 'react-toastify/dist/ReactToastify.min.css';
+
+import { useAuth } from '../hooks/useAuth';
 
 import { Header } from '../components/Header';
 import { Input } from '../components/Input';
@@ -15,6 +18,8 @@ import ifpeRecifeLogo from '../assets/ifpe_recife.webp';
 import ifosLogo from '../assets/ifos.svg';
 
 export function Login() {
+  const auth = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -31,7 +36,7 @@ export function Login() {
 
     try {
       toast.dismiss();
-      await toast.promise(
+      const response = await toast.promise(
         api.post('/oauth/login', {
           email: data.email,
           password: data.password,
@@ -41,6 +46,9 @@ export function Login() {
           success: 'Login realizado com sucesso!',
         }
       );
+
+      const { role } = jwtDecode(response.data.access_token);
+      auth.setRole(role);
 
       return navigate('/');
     } catch (error) {
