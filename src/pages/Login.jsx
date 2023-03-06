@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import { Header } from '../components/Header';
+import { Input } from '../components/Input';
 
 import { api } from '../services/api';
 
@@ -79,28 +79,37 @@ export function Login() {
               {errors.root.serverError.message}
             </span>
           )}
-          {errors.email && (
-            <span className="text-red-500 text-sm">Digite seu e-mail</span>
-          )}
-          <input
-            className={clsx('bg-neutral-200 px-4 py-2 rounded-md', {
-              'border-2 border-red-500':
-                errors.email || errors.root?.serverError,
-            })}
-            placeholder="E-mail"
-            type="email"
+
+          <Input
+            label="E-mail"
+            inputStyle={
+              errors.email || errors.root?.serverError
+                ? 'border-2 border-red-500 focus:border-b-red-500'
+                : ''
+            }
+            labelStyle={
+              errors.email || errors.root?.serverError
+                ? 'peer-focus:text-red-500'
+                : ''
+            }
+            errorMessage={errors.email && 'Digite seu e-mail'}
             {...register('email', { required: true })}
           />
-          {errors.password && (
-            <span className="text-red-500 text-sm">Digite sua senha</span>
-          )}
-          <input
-            className={clsx('bg-neutral-200 px-4 py-2 rounded-md', {
-              'border-2 border-red-500':
-                errors.email || errors.root?.serverError,
-            })}
-            placeholder="Senha"
+
+          <Input
+            label="Senha"
             type="password"
+            inputStyle={
+              errors.password || errors.root?.serverError
+                ? 'border-2 border-red-500 focus:border-b-red-500'
+                : ''
+            }
+            labelStyle={
+              errors.password || errors.root?.serverError
+                ? 'peer-focus:text-red-500'
+                : ''
+            }
+            errorMessage={errors.password && 'Digite sua senha'}
             {...register('password', { required: true })}
           />
           <button
