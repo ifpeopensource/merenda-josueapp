@@ -52,7 +52,7 @@ export function Login() {
 
       return navigate('/');
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         toast.error('E-mail ou senha incorretos');
         setError('root.serverError', { message: 'E-mail ou senha incorretos' });
       } else {
