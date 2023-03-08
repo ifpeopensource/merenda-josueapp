@@ -5,6 +5,7 @@ import { AuthProvider } from './hooks/useAuth';
 import { Login } from './pages/Login';
 import { PageNotFound } from './pages/404';
 import { Offline } from './pages/Offline';
+import { Main } from './pages/Main';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/main',
+    element: <Main />,
   },
 ]);
 
