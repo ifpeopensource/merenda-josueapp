@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import jwtDecode from 'jwt-decode';
 
-import 'react-toastify/dist/ReactToastify.min.css';
-
 import { useAuth } from '../hooks/useAuth';
 
 import { Header } from '../components/Header';

@@ -6,6 +6,8 @@ import { LoginPage } from './pages/Login';
 import { PageNotFoundPage } from './pages/404';
 import { OfflinePage } from './pages/Offline';
 
+import 'react-toastify/dist/ReactToastify.min.css';
+
 const router = createBrowserRouter([
   {
     path: '/',
