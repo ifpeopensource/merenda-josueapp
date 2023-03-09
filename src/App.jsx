@@ -2,19 +2,20 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AuthProvider } from './hooks/useAuth';
 
-import { Login } from './pages/Login';
-import { PageNotFound } from './pages/404';
-import { Offline } from './pages/Offline';
+import { LoginPage } from './pages/Login';
+import { PageNotFoundPage } from './pages/404';
+import { OfflinePage } from './pages/Offline';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PageNotFound />,
-    errorElement: <PageNotFound />,
+    element: <PageNotFoundPage />,
+    errorElement: <PageNotFoundPage />,
   },
   {
     path: '/login',
-    element: <Login />,
+    element: <LoginPage />,
+  },
   },
 ]);
 
@@ -22,7 +23,7 @@ function App() {
   const isOffline = !navigator.onLine;
 
   if (isOffline) {
-    return <Offline />;
+    return <OfflinePage />;
   }
 
   return (

@@ -15,7 +15,7 @@ import { Input } from '../components/Input';
 import ifpeRecifeLogo from '../assets/ifpe_recife.webp';
 import ifosLogo from '../assets/ifos.svg';
 
-export function Login() {
+export function LoginPage() {
   const auth = useAuth();
 
   const {

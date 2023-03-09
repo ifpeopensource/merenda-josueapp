@@ -3,7 +3,7 @@ import { FiWifiOff } from 'react-icons/fi';
 
 import { Header } from '../components/Header';
 
-export function Offline() {
+export function OfflinePage() {
   return (
     <>
       <Helmet>
