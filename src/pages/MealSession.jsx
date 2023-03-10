@@ -154,7 +154,7 @@ export function MealSessionPage() {
       </Helmet>
       <FiLoader
         className={clsx(
-          'absolute top-[calc(50%-24px)] left-[calc(50%-24px)] text-neutral-50 motion-safe:animate-spin',
+          'absolute top-[calc(50%-66px)] left-[calc(50%-24px)] text-neutral-50 motion-safe:animate-spin',
           { hidden: !isScanPaused }
         )}
         size={48}
