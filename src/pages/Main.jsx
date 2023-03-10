@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import { Header } from '../components/Header';
-import { MailSession } from '../components/MailSession';
+import { MealSession } from '../components/MealSession';
 
 export function Main() {
   const [sessions, setSessions] = useState([]);
 
   function createSession() {
-    setSessions((oldSessions) => [...oldSessions, <MailSession key={null} />]);
+    setSessions((oldSessions) => [...oldSessions, <MealSession key={null} />]);
   }
 
   return (
