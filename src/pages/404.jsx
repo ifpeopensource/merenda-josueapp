@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 
-export function PageNotFound() {
+export function PageNotFoundPage() {
   return (
     <>
       <Helmet>
