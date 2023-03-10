@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import jwtDecode from 'jwt-decode';
 
-import 'react-toastify/dist/ReactToastify.min.css';
-
 import { useAuth } from '../hooks/useAuth';
 
 import { Header } from '../components/Header';
@@ -15,7 +13,7 @@ import { Input } from '../components/Input';
 import ifpeRecifeLogo from '../assets/ifpe_recife.webp';
 import ifosLogo from '../assets/ifos.svg';
 
-export function Login() {
+export function LoginPage() {
   const auth = useAuth();
 
   const {

@@ -2,20 +2,23 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AuthProvider } from './hooks/useAuth';
 
-import { Login } from './pages/Login';
-import { PageNotFound } from './pages/404';
-import { Offline } from './pages/Offline';
+import { LoginPage } from './pages/Login';
 import { Main } from './pages/Main';
+import { OfflinePage } from './pages/Offline';
+import { PageNotFoundPage } from './pages/404';
+
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PageNotFound />,
-    errorElement: <PageNotFound />,
+    element: <PageNotFoundPage />,
+    errorElement: <PageNotFoundPage />,
   },
   {
     path: '/login',
-    element: <Login />,
+    element: <LoginPage />,
+  },
   },
   {
     path: '/main',
@@ -27,7 +30,7 @@ function App() {
   const isOffline = !navigator.onLine;
 
   if (isOffline) {
-    return <Offline />;
+    return <OfflinePage />;
   }
 
   return (
