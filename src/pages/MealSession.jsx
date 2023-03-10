@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { FiLoader } from 'react-icons/fi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import clsx from 'clsx';
 
 import { Scanner } from '../components/Scanner';
 import { StudentMealSessionModal } from '../components/StudentMealSessionModal';
@@ -151,6 +152,13 @@ export function MealSessionPage() {
       <Helmet>
         <title>Sessão de Merenda | JosueApp</title>
       </Helmet>
+      <FiLoader
+        className={clsx(
+          'absolute top-[calc(50%-24px)] left-[calc(50%-24px)] text-neutral-50 motion-safe:animate-spin',
+          { hidden: !isScanPaused }
+        )}
+        size={48}
+      />
       {mealSession.startedAt && (
         <Scanner
           onQrCodeResult={onQrCodeResult}
