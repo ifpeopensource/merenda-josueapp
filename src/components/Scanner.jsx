@@ -17,7 +17,7 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
 
   const [modalOptions, setModalOptions] = useState({
     isOpen: false,
-    message: false,
+    message: '',
     onNo: () => {},
     onYes: () => {},
   });
