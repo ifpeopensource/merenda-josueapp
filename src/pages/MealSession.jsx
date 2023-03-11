@@ -11,6 +11,7 @@ import { StudentMealSessionModal } from '../components/StudentMealSessionModal';
 import { api } from '../services/api';
 
 import { getElapsedTime } from '../utils/getElapsedTime';
+import { useAuth } from '../hooks/useAuth';
 
 export function MealSessionPage() {
   const { id } = useParams();
@@ -37,7 +38,14 @@ export function MealSessionPage() {
 
   const navigate = useNavigate();
 
+  const auth = useAuth();
+  auth.requireAuth(navigate);
+
   useEffect(() => {
+    if (!auth.isVerifier()) {
+      return navigate('/', { replace: true });
+    }
+
     function sessionNotAvailable() {
       toast.dismiss();
       toast.error(
@@ -71,7 +79,7 @@ export function MealSessionPage() {
         }
       })
       .catch(couldNotLoadSession);
-  }, []);
+  }, [auth]);
 
   async function onQrCodeResult(result) {
     if (isScanPaused) return;

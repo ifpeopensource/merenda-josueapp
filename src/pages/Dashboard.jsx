@@ -70,17 +70,19 @@ export function DashboardPage() {
   }
 
   useEffect(() => {
-    api
-      .get('/meal-sessions')
-      .then((response) => {
-        setMealSessions(response.data);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        toast.dismiss();
-        toast.error('Erro ao carregar as sessões de merenda');
-      });
-  }, []);
+    if (auth.isVerifier()) {
+      api
+        .get('/meal-sessions')
+        .then((response) => {
+          setMealSessions(response.data);
+          setIsLoading(false);
+        })
+        .catch(() => {
+          toast.dismiss();
+          toast.error('Erro ao carregar as sessões de merenda');
+        });
+    }
+  }, [auth]);
 
   if (!auth.isVerifier()) {
     return (

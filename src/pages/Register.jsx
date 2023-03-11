@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Listbox } from '@headlessui/react';
 import { Helmet } from 'react-helmet';
 import { FiChevronDown } from 'react-icons/fi';
@@ -20,9 +20,11 @@ export function RegisterPage() {
   const auth = useAuth();
   auth.requireAuth(navigate);
 
-  if (!auth.isAdmin()) {
-    navigate('/', { replace: true });
-  }
+  useEffect(() => {
+    if (!auth.isAdmin()) {
+      navigate('/', { replace: true });
+    }
+  }, [auth]);
 
   const {
     register,
