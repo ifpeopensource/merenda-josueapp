@@ -160,7 +160,7 @@ export function DashboardPage() {
 
         {auth.role === 'ADMIN' && (
           <a
-            href="/"
+            href="/register"
             className="bg-primary-800 text-neutral-50 hover:brightness-90 active:brightness-90 transition shadow-sm w-fit rounded-lg px-8 py-2 font-bold"
           >
             Cadastrar Usuário
