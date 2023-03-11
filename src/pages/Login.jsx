@@ -84,6 +84,7 @@ export function LoginPage() {
           <div className="flex flex-col gap-2">
             <Input
               label="E-mail"
+              type="email"
               inputStyle={
                 errors.email || errors.root?.serverError
                   ? 'border-2 border-red-500 focus:border-b-red-500'

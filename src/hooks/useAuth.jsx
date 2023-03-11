@@ -23,9 +23,19 @@ export function AuthProvider({ children }) {
     });
   }
 
-  function logout() {
+  async function logout(navigate, onError) {
     setAuth({ role: '' });
     localStorage.removeItem('auth');
+    try {
+      await api.post('/oauth/logout');
+      if (navigate) navigate('/login');
+    } catch (error) {
+      if (onError) {
+        onError(error);
+      } else {
+        console.error('There was an error logging out: ', error);
+      }
+    }
   }
 
   async function verify() {
@@ -43,13 +53,32 @@ export function AuthProvider({ children }) {
     }
   }
 
+  function isAdmin() {
+    if (!['ADMIN'].includes(auth.role.toUpperCase())) return false;
+    return true;
+  }
+
+  function isVerifier() {
+    if (!['ADMIN', 'VERIFIER'].includes(auth.role.toUpperCase())) return false;
+    return true;
+  }
+
   useEffect(() => {
     localStorage.setItem('auth', JSON.stringify(auth));
   }, [auth]);
 
   return (
     <AuthContext.Provider
-      value={{ ...auth, setRole, login, logout, verify, requireAuth }}
+      value={{
+        ...auth,
+        isAdmin,
+        isVerifier,
+        setRole,
+        login,
+        logout,
+        verify,
+        requireAuth,
+      }}
     >
       {children}
     </AuthContext.Provider>

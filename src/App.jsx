@@ -2,22 +2,28 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AuthProvider } from './hooks/useAuth';
 
+import { DashboardPage } from './pages/Dashboard';
 import { LoginPage } from './pages/Login';
-import { PageNotFoundPage } from './pages/404';
-import { OfflinePage } from './pages/Offline';
 import { MealSessionPage } from './pages/MealSession';
+import { OfflinePage } from './pages/Offline';
+import { PageNotFoundPage } from './pages/404';
+import { RegisterPage } from './pages/Register';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <PageNotFoundPage />,
+    element: <DashboardPage />,
     errorElement: <PageNotFoundPage />,
   },
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/register',
+    element: <RegisterPage />,
   },
   {
     path: '/meal-session/:id',
