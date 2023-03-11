@@ -3,7 +3,9 @@ import { FiSun } from 'react-icons/fi';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
+import { ConfirmationModal } from './ConfirmationModal';
 import { ElapsedTime } from './ElapsedSessionTime';
+import { useState } from 'react';
 
 export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
   const { ref: videoRef, torch } = useZxing({
@@ -11,6 +13,32 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
       onQrCodeResult(result.getText());
     },
   });
+
+  const [modalOptions, setModalOptions] = useState({
+    isOpen: false,
+    message: false,
+    onNo: () => {},
+    onYes: () => {},
+  });
+
+  function showModal(message, onYes, onNo) {
+    setModalOptions({
+      isOpen: true,
+      message,
+      onYes,
+      onNo,
+    });
+  }
+
+  function hideModal() {
+    setModalOptions((prevState) => ({
+      isOpen: false,
+      message: prevState.message, // Avoid clear message while modal is closing
+      onNo: () => {},
+      onYes: () => {},
+    }));
+  }
+
   return (
     <>
       <div className="absolute z-10 w-full h-full flex flex-col justify-between items-center">
@@ -50,7 +78,18 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
             <button
               className="bg-red-500 disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-3 rounded-md"
               type="button"
-              onClick={onSessionEnd}
+              onClick={() => {
+                showModal(
+                  'Deseja realmente encerrar esta sessão?',
+                  () => {
+                    onSessionEnd();
+                    hideModal();
+                  },
+                  () => {
+                    hideModal();
+                  }
+                );
+              }}
             >
               Encerrar sessão
             </button>
@@ -61,6 +100,13 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
       <video
         className="object-cover h-full w-full absolute -z-10"
         ref={videoRef}
+      />
+      <ConfirmationModal
+        isOpen={modalOptions.isOpen}
+        closeModal={hideModal}
+        onNo={modalOptions.onNo}
+        onYes={modalOptions.onYes}
+        message={modalOptions.message}
       />
     </>
   );
