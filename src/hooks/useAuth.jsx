@@ -23,9 +23,19 @@ export function AuthProvider({ children }) {
     });
   }
 
-  function logout() {
+  async function logout(navigate, onError) {
     setAuth({ role: '' });
     localStorage.removeItem('auth');
+    try {
+      await api.post('/oauth/logout');
+      if (navigate) navigate('/login');
+    } catch (error) {
+      if (onError) {
+        onError(error);
+      } else {
+        console.error('There was an error logging out: ', error);
+      }
+    }
   }
 
   async function verify() {
