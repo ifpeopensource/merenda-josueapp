@@ -30,6 +30,11 @@ export function MealSessionPage() {
     studentData: null,
   });
 
+  const [notAllowedModal, setNotAllowedModal] = useState({
+    isOpen: false,
+    studentData: null,
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,7 +74,6 @@ export function MealSessionPage() {
   }, []);
 
   async function onQrCodeResult(result) {
-    console.log(result, isScanPaused);
     if (isScanPaused) return;
     setScanPaused(true);
     try {
@@ -93,11 +97,17 @@ export function MealSessionPage() {
           error.response.data.error.details ===
           'student_already_in_meal_session'
         ) {
-          setErrorModal({
+          const studentData = {
+            name: error.response.data.student.name,
+            studentId: error.response.data.studentId,
+            email: error.response.data.student.email,
+            pictureUrl: error.response.data.student.picUrl,
+            servedAt: error.response.data.servedAt,
+          };
+
+          setNotAllowedModal({
             isOpen: true,
-            message: 'Este estudante já consumiu a merenda nesta sessão',
-            description: result,
-            studentData: null,
+            studentData,
           });
           return;
         }
@@ -200,6 +210,16 @@ export function MealSessionPage() {
           setScanPaused(false);
         }}
         studentData={successModal.studentData}
+      />
+      <StudentMealSessionModal.NotAllowed
+        isOpen={notAllowedModal.isOpen}
+        closeModal={() => {
+          setNotAllowedModal({
+            isOpen: false,
+          });
+          setScanPaused(false);
+        }}
+        studentData={notAllowedModal.studentData}
       />
     </>
   );
