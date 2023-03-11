@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { FiChevronLeft, FiLogOut } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { useAuth } from '../hooks/useAuth';
@@ -14,7 +14,7 @@ export function Header({ showLogoutButton = false, showBackButton = false }) {
   return (
     <>
       <div className="h-14 lg:h-16" />
-      <header className="fixed top-0 w-full bg-primary-900 h-14 lg:h-16 flex items-center justify-center gap-1">
+      <header className="fixed top-0 w-full bg-primary-900 h-14 lg:h-16 flex items-center justify-center">
         {showBackButton && (
           <button
             type="button"
@@ -26,15 +26,17 @@ export function Header({ showLogoutButton = false, showBackButton = false }) {
             <FiChevronLeft size={24} />
           </button>
         )}
-        <span className="block text-neutral-50 text-xl lg:text-xl font-bold">
-          JosueApp
-        </span>
-        <img
-          src={logomark}
-          alt="JosueApp"
-          className="h-9 lg:h-11"
-          draggable={false}
-        />
+        <Link to="/" className="flex items-center justify-center gap-1">
+          <span className="block text-neutral-50 text-xl lg:text-xl font-bold">
+            JosueApp
+          </span>
+          <img
+            src={logomark}
+            alt="JosueApp"
+            className="h-9 lg:h-11"
+            draggable={false}
+          />
+        </Link>
         {showLogoutButton && (
           <button
             type="button"
