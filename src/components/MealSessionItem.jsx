@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export function MealSessionItem({ startTime, onEnd, onJoin }) {
+export function MealSessionItem({ id, startTime, onEnd }) {
   function formatTime(date) {
     const daysAgo = Math.floor((new Date() - date) / 1000 / 60 / 60 / 24); // 1000ms * 60s * 60m * 24h = 1 day
 
@@ -40,20 +40,19 @@ export function MealSessionItem({ startTime, onEnd, onJoin }) {
         >
           Encerrar
         </button>
-        <button
-          type="button"
+        <a
           className="bg-primary-800 text-neutral-50 hover:brightness-90 active:brightness-90 transition shadow-sm w-fit rounded-lg px-8 py-2 font-bold"
-          onClick={onJoin}
+          href={`/meal-session/${id}`}
         >
           Entrar
-        </button>
+        </a>
       </div>
     </div>
   );
 }
 
 MealSessionItem.propTypes = {
+  id: PropTypes.string.isRequired,
   startTime: PropTypes.instanceOf(Date).isRequired,
   onEnd: PropTypes.func.isRequired,
-  onJoin: PropTypes.func.isRequired,
 };
