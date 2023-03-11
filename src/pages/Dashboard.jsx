@@ -47,8 +47,7 @@ export function DashboardPage() {
     setIsLoading(true);
     try {
       const response = await api.post('/meal-sessions');
-
-      setMealSessions((prevState) => [response.data, ...prevState]);
+      navigate(`/meal-session/${response.data.id}`);
     } catch (error) {
       toast.error('Erro ao iniciar uma nova sessão');
     }
