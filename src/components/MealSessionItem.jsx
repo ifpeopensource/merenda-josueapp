@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export function MealSessionItem({ id, startTime, onEnd }) {
   function formatTime(date) {
@@ -40,12 +41,12 @@ export function MealSessionItem({ id, startTime, onEnd }) {
         >
           Encerrar
         </button>
-        <a
+        <Link
           className="bg-primary-800 text-neutral-50 hover:brightness-90 active:brightness-90 transition shadow-sm w-fit rounded-lg px-8 py-2 font-bold"
-          href={`/meal-session/${id}`}
+          to={`/meal-session/${id}`}
         >
           Entrar
-        </a>
+        </Link>
       </div>
     </div>
   );

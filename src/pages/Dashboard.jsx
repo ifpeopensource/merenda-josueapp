@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FiLoader } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { ConfirmationModal } from '../components/ConfirmationModal';
@@ -162,12 +162,12 @@ export function DashboardPage() {
         </div>
 
         {auth.role === 'ADMIN' && (
-          <a
-            href="/register"
+          <Link
+            to="/register"
             className="bg-primary-800 text-neutral-50 hover:brightness-90 active:brightness-90 transition shadow-sm w-fit rounded-lg px-8 py-2 font-bold"
           >
             Cadastrar Usuário
-          </a>
+          </Link>
         )}
       </div>
       <ConfirmationModal

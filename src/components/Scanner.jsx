@@ -1,11 +1,12 @@
+import { useState } from 'react';
 import { useZxing } from 'react-zxing';
+import { Link } from 'react-router-dom';
 import { FiSun } from 'react-icons/fi';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import { ConfirmationModal } from './ConfirmationModal';
 import { ElapsedTime } from './ElapsedSessionTime';
-import { useState } from 'react';
 
 export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
   const { ref: videoRef, torch } = useZxing({
@@ -69,12 +70,12 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
             )}
           </div>
           <div className="flex flex-col gap-2 w-full">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="bg-primary-800 text-center disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-3 rounded-md"
             >
               Voltar para a tela inicial
-            </a>
+            </Link>
             <button
               className="bg-red-500 disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-3 rounded-md"
               type="button"
