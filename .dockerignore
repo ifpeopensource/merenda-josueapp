@@ -1,0 +1,28 @@
+.git/
+node_modules/
+
+# Environment files
+.env.local
+.env.local.example
+
+# Build outputs
+dist/
+dev-dist/
+
+# CI files
+.github/
+.husky/
+commitlint.config.js
+
+# Linting files
+.eslintignore
+.eslintrc.json
+.prettierrc
+
+# Editor files
+.vscode/
+.editorconfig
+
+# Repository files
+README.md
+LICENSE
