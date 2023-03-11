@@ -7,6 +7,7 @@ export const Input = forwardRef(
     {
       label,
       type,
+      autocomplete,
       inputStyle,
       labelStyle,
       errorMessage,
@@ -21,6 +22,7 @@ export const Input = forwardRef(
         <input
           id={name}
           type={type}
+          autoComplete={autocomplete}
           className={clsx(
             'w-full bg-neutral-200 flex-1 px-4 pt-5 py-2 rounded-md outline-none focus:rounded-b-none focus:border-b-2 transition-all duration-75 focus:border-b-primary-800 peer',
             inputStyle
@@ -55,6 +57,7 @@ Input.displayName = 'Input';
 Input.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
+  autocomplete: PropTypes.string,
   inputStyle: PropTypes.string,
   labelStyle: PropTypes.string,
   errorMessage: PropTypes.string,
