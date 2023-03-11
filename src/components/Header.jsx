@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { FiLogOut } from 'react-icons/fi';
+import { FiChevronLeft, FiLogOut } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -7,7 +7,7 @@ import { useAuth } from '../hooks/useAuth';
 
 import logomark from '../assets/josueapp-100.webp';
 
-export function Header({ showLogoutButton = false }) {
+export function Header({ showLogoutButton = false, showBackButton = false }) {
   const auth = useAuth();
   const navigate = useNavigate();
 
@@ -15,6 +15,17 @@ export function Header({ showLogoutButton = false }) {
     <>
       <div className="h-14 lg:h-16" />
       <header className="fixed top-0 w-full bg-primary-900 h-14 lg:h-16 flex items-center justify-center gap-1">
+        {showBackButton && (
+          <button
+            type="button"
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="absolute hover:brightness-90 transition bg-primary-900 p-2 rounded-lg text-neutral-50 left-4"
+          >
+            <FiChevronLeft size={24} />
+          </button>
+        )}
         <span className="block text-neutral-50 text-xl lg:text-xl font-bold">
           JosueApp
         </span>
@@ -51,4 +62,5 @@ export function Header({ showLogoutButton = false }) {
 
 Header.propTypes = {
   showLogoutButton: PropTypes.bool,
+  showBackButton: PropTypes.bool,
 };
