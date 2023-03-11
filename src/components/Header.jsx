@@ -1,6 +1,16 @@
+import PropTypes from 'prop-types';
+import { FiLogOut } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+
+import { useAuth } from '../hooks/useAuth';
+
 import logomark from '../assets/josueapp-100.webp';
 
-export function Header() {
+export function Header({ showLogoutButton = false }) {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="h-14 lg:h-16" />
@@ -14,7 +24,31 @@ export function Header() {
           className="h-9 lg:h-11"
           draggable={false}
         />
+        {showLogoutButton && (
+          <button
+            type="button"
+            onClick={() => {
+              auth.logout(navigate, () => {
+                toast.error('Não foi possível fazer logout.');
+              });
+            }}
+            className="absolute hover:brightness-90 transition bg-primary-900 p-2 rounded-lg text-neutral-50 right-4"
+          >
+            <FiLogOut size={24} />
+          </button>
+        )}
       </header>
+      <ToastContainer
+        position="top-right"
+        theme="colored"
+        style={{
+          fontWeight: 'bold',
+        }}
+      />
     </>
   );
 }
+
+Header.propTypes = {
+  showLogoutButton: PropTypes.bool,
+};
