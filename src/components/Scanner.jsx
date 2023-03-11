@@ -1,29 +1,32 @@
 import { useState } from 'react';
 import { useZxing } from 'react-zxing';
 import { Link } from 'react-router-dom';
-import { FiSun } from 'react-icons/fi';
+import { FiEdit2, FiSun } from 'react-icons/fi';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import { ConfirmationModal } from './ConfirmationModal';
+import { ManuallyAddStudentModal } from './ManuallyAddStudentModal';
 import { ElapsedTime } from './ElapsedSessionTime';
 
-export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
+export function Scanner({ onResult, onSessionEnd, elapsedTime }) {
   const { ref: videoRef, torch } = useZxing({
     onResult(result) {
-      onQrCodeResult(result.getText());
+      onResult(result.getText());
     },
   });
 
-  const [modalOptions, setModalOptions] = useState({
+  const [confirmationModalOptions, setConfirmationModalOptions] = useState({
     isOpen: false,
     message: '',
     onNo: () => {},
     onYes: () => {},
   });
 
+  const [isAddStudentModalOpen, setStudentModalOpen] = useState(false);
+
   function showModal(message, onYes, onNo) {
-    setModalOptions({
+    setConfirmationModalOptions({
       isOpen: true,
       message,
       onYes,
@@ -32,7 +35,7 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
   }
 
   function hideModal() {
-    setModalOptions((prevState) => ({
+    setConfirmationModalOptions((prevState) => ({
       isOpen: false,
       message: prevState.message, // Avoid clear message while modal is closing
       onNo: () => {},
@@ -70,14 +73,22 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
             )}
           </div>
           <div className="flex flex-col gap-2 w-full">
+            <button
+              className="bg-neutral-900/60 hover:brightness-90 transition underline text-neutral-50 font-bold px-4 py-2 rounded-md flex items-center justify-center gap-2"
+              onClick={() => {
+                setStudentModalOpen(true);
+              }}
+            >
+              <FiEdit2 /> Adicionar manualmente
+            </button>
             <Link
               to="/"
-              className="bg-primary-800 text-center disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-3 rounded-md"
+              className="bg-primary-800 text-center disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-2 rounded-md"
             >
               Voltar para a tela inicial
             </Link>
             <button
-              className="bg-red-500 disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-3 rounded-md"
+              className="bg-red-500 disabled:cursor-progress hover:brightness-90 transition text-neutral-50 text-lg font-bold px-4 py-2 rounded-md"
               type="button"
               onClick={() => {
                 showModal(
@@ -103,18 +114,27 @@ export function Scanner({ onQrCodeResult, onSessionEnd, elapsedTime }) {
         ref={videoRef}
       />
       <ConfirmationModal
-        isOpen={modalOptions.isOpen}
+        isOpen={confirmationModalOptions.isOpen}
         closeModal={hideModal}
-        onNo={modalOptions.onNo}
-        onYes={modalOptions.onYes}
-        message={modalOptions.message}
+        onNo={confirmationModalOptions.onNo}
+        onYes={confirmationModalOptions.onYes}
+        message={confirmationModalOptions.message}
+      />
+      <ManuallyAddStudentModal
+        isOpen={isAddStudentModalOpen}
+        closeModal={() => {
+          setStudentModalOpen(false);
+        }}
+        onAdd={(studentId) => {
+          onResult(studentId);
+        }}
       />
     </>
   );
 }
 
 Scanner.propTypes = {
-  onQrCodeResult: PropTypes.func.isRequired,
+  onResult: PropTypes.func.isRequired,
   onSessionEnd: PropTypes.func.isRequired,
   elapsedTime: PropTypes.shape({
     hours: PropTypes.number,
