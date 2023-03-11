@@ -33,3 +33,5 @@ jobs:
           auto_fix: true
           eslint: true
           eslint_extensions: js,jsx,ts,tsx
+          commit_message: "chore: fix code style issues with ${linter}"
+          git_no_verify: true
