@@ -53,13 +53,32 @@ export function AuthProvider({ children }) {
     }
   }
 
+  function isAdmin() {
+    if (!['ADMIN'].includes(auth.role.toUpperCase())) return false;
+    return true;
+  }
+
+  function isVerifier() {
+    if (!['ADMIN', 'VERIFIER'].includes(auth.role.toUpperCase())) return false;
+    return true;
+  }
+
   useEffect(() => {
     localStorage.setItem('auth', JSON.stringify(auth));
   }, [auth]);
 
   return (
     <AuthContext.Provider
-      value={{ ...auth, setRole, login, logout, verify, requireAuth }}
+      value={{
+        ...auth,
+        isAdmin,
+        isVerifier,
+        setRole,
+        login,
+        logout,
+        verify,
+        requireAuth,
+      }}
     >
       {children}
     </AuthContext.Provider>
