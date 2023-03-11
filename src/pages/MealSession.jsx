@@ -81,7 +81,7 @@ export function MealSessionPage() {
       .catch(couldNotLoadSession);
   }, [auth]);
 
-  async function onQrCodeResult(result) {
+  async function onScannerResult(result) {
     if (isScanPaused) return;
     setScanPaused(true);
     try {
@@ -179,7 +179,7 @@ export function MealSessionPage() {
       />
       {mealSession.startedAt && (
         <Scanner
-          onQrCodeResult={onQrCodeResult}
+          onResult={onScannerResult}
           onSessionEnd={onSessionEnd}
           elapsedTime={elapsedTime}
         />
