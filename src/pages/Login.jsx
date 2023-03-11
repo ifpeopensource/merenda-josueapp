@@ -43,7 +43,7 @@ export function LoginPage() {
       const { role } = jwtDecode(response.data.access_token);
       auth.setRole(role);
 
-      return navigate('/');
+      navigate('/');
     } catch (error) {
       if (error.response?.status === 401) {
         toast.error('E-mail ou senha incorretos');

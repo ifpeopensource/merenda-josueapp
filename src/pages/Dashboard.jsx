@@ -16,22 +16,6 @@ export function DashboardPage() {
   const auth = useAuth();
   auth.requireAuth(navigate);
 
-  if (!auth.isVerifier()) {
-    return (
-      <>
-        <Header showLogoutButton />
-        <div className="flex flex-col gap-2 px-4 my-6">
-          <p className="text-lg font-medium text-primary-900">
-            Você não possui permissão para gerenciar as sessões de merenda
-          </p>
-          <p className="text-primary-900">
-            Em caso de dúvidas, entre em contato com o administrador do sistema.
-          </p>
-        </div>
-      </>
-    );
-  }
-
   const [mealSessions, setMealSessions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [modalOptions, setModalOptions] = useState({
@@ -93,9 +77,26 @@ export function DashboardPage() {
         setIsLoading(false);
       })
       .catch(() => {
+        toast.dismiss();
         toast.error('Erro ao carregar as sessões de merenda');
       });
   }, []);
+
+  if (!auth.isVerifier()) {
+    return (
+      <>
+        <Header showLogoutButton />
+        <div className="flex flex-col gap-2 px-4 my-6">
+          <p className="text-lg font-medium text-primary-900">
+            Você não possui permissão para gerenciar as sessões de merenda
+          </p>
+          <p className="text-primary-900">
+            Em caso de dúvidas, entre em contato com o administrador do sistema.
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
