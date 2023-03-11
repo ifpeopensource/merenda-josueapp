@@ -5,11 +5,11 @@ export function ElapsedTime({ elapsedTime }) {
     <span className="font-normal">
       {elapsedTime.hours > 0 && String(elapsedTime.hours) + ' horas, '}
       {(elapsedTime.minutes > 0 || elapsedTime.hours > 0) &&
-        String(elapsedTime.minutes) + ' minutos '}
+        String(elapsedTime.minutes) + ' minutos e '}
       {(elapsedTime.seconds > 0 ||
         elapsedTime.minutes > 0 ||
         elapsedTime.hours > 0) &&
-        'e ' + String(elapsedTime.seconds) + ' segundos'}
+        String(elapsedTime.seconds) + ' segundos'}
     </span>
   );
 }
