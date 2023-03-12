@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FiLoader } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { ConfirmationModal } from '../components/ConfirmationModal';
@@ -15,22 +15,6 @@ export function DashboardPage() {
 
   const auth = useAuth();
   auth.requireAuth(navigate);
-
-  if (!auth.isVerifier()) {
-    return (
-      <>
-        <Header showLogoutButton />
-        <div className="flex flex-col gap-2 px-4 my-6">
-          <p className="text-lg font-medium text-primary-900">
-            Você não possui permissão para gerenciar as sessões de merenda
-          </p>
-          <p className="text-primary-900">
-            Em caso de dúvidas, entre em contato com o administrador do sistema.
-          </p>
-        </div>
-      </>
-    );
-  }
 
   const [mealSessions, setMealSessions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,8 +47,7 @@ export function DashboardPage() {
     setIsLoading(true);
     try {
       const response = await api.post('/meal-sessions');
-
-      setMealSessions((prevState) => [response.data, ...prevState]);
+      navigate(`/meal-session/${response.data.id}`);
     } catch (error) {
       toast.error('Erro ao iniciar uma nova sessão');
     }
@@ -86,16 +69,35 @@ export function DashboardPage() {
   }
 
   useEffect(() => {
-    api
-      .get('/meal-sessions')
-      .then((response) => {
-        setMealSessions(response.data);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        toast.error('Erro ao carregar as sessões de merenda');
-      });
-  }, []);
+    if (auth.isVerifier()) {
+      api
+        .get('/meal-sessions')
+        .then((response) => {
+          setMealSessions(response.data);
+          setIsLoading(false);
+        })
+        .catch(() => {
+          toast.dismiss();
+          toast.error('Erro ao carregar as sessões de merenda');
+        });
+    }
+  }, [auth]);
+
+  if (!auth.isVerifier()) {
+    return (
+      <>
+        <Header showLogoutButton />
+        <div className="flex flex-col gap-2 px-4 my-6">
+          <p className="text-lg font-medium text-primary-900">
+            Você não possui permissão para gerenciar as sessões de merenda
+          </p>
+          <p className="text-primary-900">
+            Em caso de dúvidas, entre em contato com o administrador do sistema.
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -159,12 +161,12 @@ export function DashboardPage() {
         </div>
 
         {auth.role === 'ADMIN' && (
-          <a
-            href="/register"
+          <Link
+            to="/register"
             className="bg-primary-800 text-neutral-50 hover:brightness-90 active:brightness-90 transition shadow-sm w-fit rounded-lg px-8 py-2 font-bold"
           >
             Cadastrar Usuário
-          </a>
+          </Link>
         )}
       </div>
       <ConfirmationModal

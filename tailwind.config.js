@@ -8,6 +8,9 @@ module.exports = {
           800: '#2F9E41',
           900: '#3C8748',
         },
+        red: {
+          500: '#E45E5E',
+        },
       },
     },
     fontFamily: {

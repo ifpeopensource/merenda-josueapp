@@ -1,4 +1,5 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
@@ -17,15 +18,26 @@ export const Input = forwardRef(
     },
     ref
   ) => {
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
     return (
       <div className="relative">
         <input
           id={name}
-          type={type}
+          type={
+            type === 'password'
+              ? isPasswordVisible
+                ? 'text'
+                : 'password'
+              : type
+          }
           autoComplete={autocomplete}
           className={clsx(
             'w-full bg-neutral-200 flex-1 px-4 pt-5 py-2 rounded-md outline-none focus:rounded-b-none focus:border-b-2 transition-all duration-75 focus:border-b-primary-800 peer',
-            inputStyle
+            inputStyle,
+            {
+              'pr-11': type === 'password',
+            }
           )}
           placeholder=" "
           onChange={onChange}
@@ -43,6 +55,15 @@ export const Input = forwardRef(
           >
             {label}
           </label>
+        )}
+        {type === 'password' && (
+          <button
+            type="button"
+            className="absolute hover:bg-neutral-300 transition p-2 rounded-lg text-gray-500 right-2 z-10 top-1/2 -translate-y-1/2"
+            onClick={() => setIsPasswordVisible((prev) => !prev)}
+          >
+            {isPasswordVisible ? <FiEyeOff /> : <FiEye />}
+          </button>
         )}
         {errorMessage && (
           <span className="text-red-500 text-sm">{errorMessage}</span>

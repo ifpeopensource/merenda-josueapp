@@ -4,6 +4,7 @@ import { AuthProvider } from './hooks/useAuth';
 
 import { DashboardPage } from './pages/Dashboard';
 import { LoginPage } from './pages/Login';
+import { MealSessionPage } from './pages/MealSession';
 import { OfflinePage } from './pages/Offline';
 import { PageNotFoundPage } from './pages/404';
 import { RegisterPage } from './pages/Register';
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <RegisterPage />,
+  },
+  {
+    path: '/meal-session/:id',
+    element: <MealSessionPage />,
   },
 ]);
 

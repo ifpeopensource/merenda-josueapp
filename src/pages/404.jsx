@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 
 export function PageNotFoundPage() {
   return (
@@ -13,9 +14,9 @@ export function PageNotFoundPage() {
         <h2 className="text-2xl bg-green-800 py-2 px-4 rounded-lg">
           Erro <code>404</code>
         </h2>
-        <a href="/" className="text-xl hover:underline">
+        <Link to="/" className="text-xl hover:underline">
           Voltar para a página inicial
-        </a>
+        </Link>
       </div>
     </>
   );

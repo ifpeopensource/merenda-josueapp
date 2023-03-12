@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { FiWifiOff } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 import { Header } from '../components/Header';
 
@@ -18,12 +19,13 @@ export function OfflinePage() {
           <p>Conecte-se à internet para utilizar o JosueApp</p>
         </div>
         <FiWifiOff size={40} />
-        <a
-          href="/"
+        <Link
+          reloadDocument
+          to="/"
           className="block bg-primary-800 hover:brightness-90 active:brightness-90 transition text-neutral-50 font-bold px-4 py-2 rounded-lg"
         >
           Recarregar
-        </a>
+        </Link>
       </div>
     </>
   );
