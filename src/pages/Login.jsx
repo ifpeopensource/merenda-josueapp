@@ -68,7 +68,7 @@ export function LoginPage() {
       <Helmet>
         <title>Login | JosueApp</title>
       </Helmet>
-      <Header />
+      <Header navigate={navigate} />
       <div className="p-4 pt-8 max-w-md mx-auto">
         <h1 className="text-4xl font-bold text-neutral-900">Login</h1>
         <form

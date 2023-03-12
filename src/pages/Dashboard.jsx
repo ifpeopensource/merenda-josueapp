@@ -86,7 +86,7 @@ export function DashboardPage() {
   if (!auth.isVerifier()) {
     return (
       <>
-        <Header showLogoutButton />
+        <Header showLogoutButton navigate={navigate} />
         <div className="flex flex-col gap-2 px-4 my-6">
           <p className="text-lg font-medium text-primary-900">
             Você não possui permissão para gerenciar as sessões de merenda
@@ -101,7 +101,7 @@ export function DashboardPage() {
 
   return (
     <>
-      <Header showLogoutButton />
+      <Header showLogoutButton navigate={navigate} />
       <div className="flex flex-col gap-11 px-4 my-6">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">

@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import { FiChevronLeft, FiLogOut } from 'react-icons/fi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { useAuth } from '../hooks/useAuth';
 
 import logomark from '../assets/josueapp-100.webp';
 
-export function Header({ showLogoutButton = false, showBackButton = false }) {
+export function Header({
+  showLogoutButton = false,
+  showBackButton = false,
+  navigate,
+}) {
   const auth = useAuth();
-  const navigate = useNavigate();
 
   return (
     <>
@@ -19,31 +22,47 @@ export function Header({ showLogoutButton = false, showBackButton = false }) {
           <button
             type="button"
             onClick={() => {
-              navigate(-1);
+              if (navigate) navigate(-1);
             }}
             className="absolute hover:brightness-90 transition bg-primary-900 p-2 rounded-lg text-neutral-50 left-4"
           >
             <FiChevronLeft size={24} />
           </button>
         )}
-        <Link to="/" className="flex items-center justify-center gap-1">
-          <span className="block text-neutral-50 text-xl lg:text-xl font-bold">
-            JosueApp
-          </span>
-          <img
-            src={logomark}
-            alt="JosueApp"
-            className="h-9 lg:h-11"
-            draggable={false}
-          />
-        </Link>
+        {navigate ? (
+          <Link to="/" className="flex items-center justify-center gap-1">
+            <span className="block text-neutral-50 text-xl lg:text-xl font-bold">
+              JosueApp
+            </span>
+            <img
+              src={logomark}
+              alt="JosueApp"
+              className="h-9 lg:h-11"
+              draggable={false}
+            />
+          </Link>
+        ) : (
+          <>
+            <span className="block text-neutral-50 text-xl lg:text-xl font-bold">
+              JosueApp
+            </span>
+            <img
+              src={logomark}
+              alt="JosueApp"
+              className="h-9 lg:h-11"
+              draggable={false}
+            />
+          </>
+        )}
         {showLogoutButton && (
           <button
             type="button"
             onClick={() => {
-              auth.logout(navigate, () => {
-                toast.error('Não foi possível fazer logout.');
-              });
+              if (navigate && auth) {
+                auth.logout(navigate, () => {
+                  toast.error('Não foi possível fazer logout.');
+                });
+              }
             }}
             className="absolute hover:brightness-90 transition bg-primary-900 p-2 rounded-lg text-neutral-50 right-4"
           >
@@ -65,4 +84,5 @@ export function Header({ showLogoutButton = false, showBackButton = false }) {
 Header.propTypes = {
   showLogoutButton: PropTypes.bool,
   showBackButton: PropTypes.bool,
+  navigate: PropTypes.func,
 };

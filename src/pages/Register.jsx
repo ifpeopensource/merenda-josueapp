@@ -116,7 +116,7 @@ export function RegisterPage() {
       <Helmet>
         <title>Cadastro | JosueApp</title>
       </Helmet>
-      <Header showBackButton showLogoutButton />
+      <Header showBackButton showLogoutButton navigate={navigate} />
       <div className="p-4 pt-8 max-w-md mx-auto">
         <h1 className="text-4xl font-bold text-neutral-900">
           Cadastrar Usuário

@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet';
 import { FiWifiOff } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 
 import { Header } from '../components/Header';
 
@@ -16,16 +15,16 @@ export function OfflinePage() {
           <h1 className="text-2xl font-bold ">
             Parece que você está offline...
           </h1>
+          <p>Não foi possível se conectar ao servidor</p>
           <p>Conecte-se à internet para utilizar o JosueApp</p>
         </div>
         <FiWifiOff size={40} />
-        <Link
-          reloadDocument
-          to="/"
+        <a
+          href="/"
           className="block bg-primary-800 hover:brightness-90 active:brightness-90 transition text-neutral-50 font-bold px-4 py-2 rounded-lg"
         >
           Recarregar
-        </Link>
+        </a>
       </div>
     </>
   );
