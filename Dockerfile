@@ -13,11 +13,9 @@ RUN npm ci
 # Copy the rest of app files
 COPY . .
 
+# Set Environment Variables
 ARG VITE_API_URL=http://localhost:3000
-
-# Create .env.production.local file if not exists and set the environment variables
-RUN touch .env.production.local
-RUN echo "VITE_API_URL=$VITE_API_URL" >> .env.production.local
+ENV VITE_API_URL=$VITE_API_URL
 
 # Build the app
 RUN npm run build
